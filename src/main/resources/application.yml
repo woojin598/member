@@ -1,0 +1,55 @@
+server:
+  port: 0 # 0번 port가 아닌 사용되지 않는 port번호를 임의로 할당요청
+  
+spring:
+  application:
+    name: member-service
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest  
+    
+  h2: # h2 데이터베이스 설정
+    console:
+      enabled: true # 브라우저에에서 콘솔을 볼 수 있게 하겠다.
+      settings:
+        web-allow-others: true
+      path: /h2-console # url
+      
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password: 
+      
+# Spring Cloud에서 Eureka 서비스 디스커버리를 사용하기 위한 설정
+# 유레카서버와 클라이언트의 연동(메인 서버 및 유레카 서버 등록)
+eureka:
+  instance:
+    prefer-ip-address: true # 현재파일(api게이트웨이)의 IP 주소를 우선적으로 등록하도록 설정
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+  client:
+    register-with-eureka: true # Eureka서버에 현재파일(api게이트웨이)를 등록록함
+    fetch-registry: true #Eureka서버의 등록정보를 가져 올지 확인(주기적으로 다른 인스턴스의 데이터를 받아와서 갱신)
+    service-url:
+      defaltZone: http://localhost:8761/eureka #Eureka 클라이언트가 Eureka 서버와 통신할 기본 URL을 설정(Eureka서버로 들록한 포트번호)
+
+ 
+data:
+  url: http://ORDER-SERVICE/order-service/orders/user/%s
+  SECRETE_KEY : emssecretKey
+
+  
+# api게이트웨이에 선언
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans, busrefresh 
+        #refresh서버기능 없이 재가동시켜줌, health 서비가 살았는지, 죽었는지, beans 서버의 bean정보
