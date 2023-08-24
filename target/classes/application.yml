@@ -10,23 +10,23 @@ spring:
     username: guest
     password: guest  
     
-  h2: # h2 데이터베이스 설정
-    console:
-      enabled: true # 브라우저에에서 콘솔을 볼 수 있게 하겠다.
-      settings:
-        web-allow-others: true
-      path: /h2-console # url
+ 
       
   jpa:
     hibernate:
-      ddl-auto: update
-    show-sql: true
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      ddl-auto: none
+    properties:
+      hibernate: 
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        
 
   datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:testdb
-    username: sa
-    password: 
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/artdb2?serverTimezone=Asia/Seoul&useUnicode=true&characterEncoding=utf-8
+    username: tj705
+    password: tj705
       
 # Spring Cloud에서 Eureka 서비스 디스커버리를 사용하기 위한 설정
 # 유레카서버와 클라이언트의 연동(메인 서버 및 유레카 서버 등록)
