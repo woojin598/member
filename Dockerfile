@@ -1,4 +1,4 @@
-FROM openjdk:11-jdk
-WORKDIR /app
-COPY target/*.jar app.jar
-CMD ["java", "-Dspring.profiles.active=prod", "-jar", "app.jar"]
+FROM openjdk:17-ea-11-jdk-slim
+VOLUME /tmp
+COPY target/member-service-1.0.jar MemberService.jar
+ENTRYPOINT ["java", "-jar", "MemberService.jar"]
