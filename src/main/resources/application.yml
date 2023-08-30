@@ -24,7 +24,7 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/artdb2?serverTimezone=Asia/Seoul&useUnicode=true&characterEncoding=utf-8
+    url: jdbc:mysql://127.0.0.1:3306/artdb2?serverTimezone=Asia/Seoul&useUnicode=true&characterEncoding=utf-8
     username: tj705
     password: tj705
       
